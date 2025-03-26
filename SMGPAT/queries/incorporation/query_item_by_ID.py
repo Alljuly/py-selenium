@@ -23,6 +23,21 @@ BUTTON_QUERY = 'BTNCONSULTAR'
 TABLE_RESULT_ID = 'GriddetalhesContainerTbl'
 BUTTON_VIZUALIZER_NAME = 'vVISUALIZAR_0'
 
+# Constantes para a descricao do item pesquisado
+PATPLAQUETA_ID = 'PATPLAQUETA'
+STATUS_ID = 'span_PATSITUACAO'
+ORGANOGRAMA_NAME_ID = 'span_PATORGNADMNOME'
+MATERIAL_ID = 'span_vMATGRUPOCODIGO'
+MATERIAL_NAME_ID = 'span_MATERIALNOME'
+NOTA_FISCAL_ID = 'span_PATNOTAFISCALNMR'
+SERIE_NOTA_FISCAL_ID = 'span_PATNOTAFISCALSERIE'
+NUMERO_EMPENHO_ID = 'span_W0378CTLPATRIMONIOLIQEMPENHONMR_0001'
+ANO_EMPENHO_ID = 'span_W0378CTLPATRIMONIOLIQEMPENHOANO_0001'
+INCLUIDO_POR_ID = 'span_PATINCLUIDOPORNOME'
+INCLUIDO_EM_ID = 'span_PATINCLUIDOEM'
+MODIFICADO_POR_ID = 'span_PATALTERADOPORNOME'
+ULTIMA_MODIFICACAO_ID = 'span_PATINCLUIDOEM'
+
 def generate_query_csv():
     query_table = navigator.find_element(By.ID, TABLE_RESULT_ID)
     query_rows = []
@@ -31,36 +46,36 @@ def generate_query_csv():
     
     list_items = []
     if len(query_rows) > 1:
-         for i, row in enumerate(query_rows[1:]):
+        for i, row in enumerate(query_rows[1:]):
             id_name_element = f'{BUTTON_VIZUALIZER_NAME}{i+1:03}'
             button_vizualizer = navigator.find_element(By.NAME, id_name_element)
             button_vizualizer.click()
             
             item_description = {
-                    "patplaqueta": navigator.find_element(By.ID, 'PATPLAQUETA'),
-                    "status": navigator.find_element(By.ID, 'span_PATSITUACAO'),
-                    "organograma_name": navigator.find_element(By.ID, 'span_PATORGNADMNOME'),
-                    "material_id": navigator.find_element(By.ID, 'span_vMATGRUPOCODIGO'),
-                    "material_name": navigator.find_element(By.ID, 'span_MATERIALNOME'),
-                    "nota_fiscal": navigator.find_element(By.ID, 'span_PATNOTAFISCALNMR'),
-                    "serie_nota_fiscal": navigator.find_element(By.ID, 'span_PATNOTAFISCALSERIE'),
-                    "numero_empenho": navigator.find_element(By.ID, 'span_W0378CTLPATRIMONIOLIQEMPENHONMR_0001'),
-                    "ano_empenho": navigator.find_element(By.ID, 'span_W0378CTLPATRIMONIOLIQEMPENHOANO_0001'),
-                    "incluido_por": navigator.find_element(By.ID, 'span_PATINCLUIDOPORNOME'),
-                    "incluido_em": navigator.find_element(By.ID, 'span_PATINCLUIDOEM'),
-                    "modificado_por": navigator.find_element(by.ID, 'span_PATALTERADOPORNOME'),
-                    "ultima_modificacao": navigator.find_element(By.ID, 'span_PATINCLUIDOEM')
+                    "patplaqueta": navigator.find_element(By.ID, PATPLAQUETA_ID).text,
+                    "status": navigator.find_element(By.ID, STATUS_ID).text,
+                    "organograma_name": navigator.find_element(By.ID, ORGANOGRAMA_NAME_ID).text,
+                    "material_id": navigator.find_element(By.ID, MATERIAL_ID).text,
+                    "material_name": navigator.find_element(By.ID, MATERIAL_NAME_ID).text,
+                    "nota_fiscal": navigator.find_element(By.ID, NOTA_FISCAL_ID).text,
+                    "serie_nota_fiscal": navigator.find_element(By.ID, SERIE_NOTA_FISCAL_ID).text,
+                    "numero_empenho": navigator.find_element(By.ID, NUMERO_EMPENHO_ID).text,
+                    "ano_empenho": navigator.find_element(By.ID, ANO_EMPENHO_ID).text,
+                    "incluido_por": navigator.find_element(By.ID, INCLUIDO_POR_ID).text,
+                    "incluido_em": navigator.find_element(By.ID, INCLUIDO_EM_ID).text,
+                    "modificado_por": navigator.find_element(By.ID, MODIFICADO_POR_ID).text,
+                    "ultima_modificacao": navigator.find_element(By.ID, ULTIMA_MODIFICACAO_ID).text
                     }
             list_items.append(item_description)
     
-    current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    result_csv = f'resultado_consulta_{current_time}.csv' 
-    header = list(item_description.keys())
-    with open(result_csv, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.DictWriter(file, fieldnames=header)
-        writer.writeheader()
-        for item in list_items:
-            writer.writerow(item)
+        current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        result_csv = f'resultado_consulta_{current_time}.csv' 
+        header = list(item_description.keys())
+        with open(result_csv, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=header)
+            writer.writeheader()
+            for item in list_items:
+                writer.writerow(item)
 
 
 def load_plaquetas(csv_path: str):
