@@ -3,12 +3,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from SMGPAT.tools import get_navigator
-from SMGPAT.utils import *
+from SMGPAT.utils import LOGIN_FIELDSET_ID,PASSWORD_FIELDSET_ID,BUTTOM_FORM_LOGIN_NAME,BUTTOM_FORM_MODULE_ID
 from SMGPAT.settings import *
 
 
 
-def login():
+def login_patrimonio():
     navigator = get_navigator()
 
     wait = WebDriverWait(navigator, 30)
