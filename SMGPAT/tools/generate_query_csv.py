@@ -5,10 +5,10 @@ from SMGPAT.tools.webdriver_wait import wait_presence_get_text, wait_visibility,
 
 from datetime import datetime
 
-def get_item_description(navigator, query_row):
-    id_name_element = f'{BUTTON_VIZUALIZER_NAME}{query_row:04}'
+def get_item_description(navigator, index):
+    id_name_element = f'{BUTTON_VIZUALIZER_NAME}{index+1:04}'
     
-    wait_and_click(navigator, By.NAME, id_name_element)
+    wait_and_click(navigator, By.ID, id_name_element)
     
     item_description = {
             "patplaqueta": wait_presence_get_text(navigator, By.ID, PATPLAQUETA_ID),
@@ -46,9 +46,22 @@ def get_item_description(navigator, query_row):
     return item_description
 
 def organize_items_pagination(navigator, query_rows):
-    pass
+    items = []
+    print(f'query rows 2 {query_rows}')
+    for i, row in enumerate(query_rows):
+        if not isinstance(row, (list, tuple)):  
+            row = [row]
+            for j, item in enumerate(row):
+                print(j)
+                item_description = get_item_description(navigator, j)
+                items.append(item_description)
+                print(f'item {items}')
+        else:
+            item_description = get_item_description(navigator, row)
+            items.append(item_description) 
+    return items
 
-def generate_items_description(navigator, query_rows):
+#def generate_items_description(navigator, query_rows):
     list_items = [ ]
     item_description = { 
        # "patplaqueta": navigator.find_element(By.ID, PATPLAQUETA_ID),
@@ -65,18 +78,14 @@ def generate_items_description(navigator, query_rows):
        # "modificado_por": navigator.find_element(By.ID, MODIFICADO_POR_ID),
        # "ultima_modificacao": navigator.find_element(By.ID, ULTIMA_MODIFICACAO_ID)
     }
-    if len(query_rows) == 1:
-        item_description = get_item_description(navigator, 1)
-        list_items.append(item_description)
-        return list_items
-    elif len(query_rows) > 1:
-        items = organize_items_pagination(navigator, query_rows)
-        return list_items.append(items)
+    items = organize_items_pagination(navigator, query_rows)
+    return list_items.append(items)
 
 
 def generate_query_csv(navigator, query_rows):
-    list_items = generate_items_description(navigator, query_rows)
+    list_items = organize_items_pagination(navigator, query_rows)
    
+    print(f'query rows 1 {query_rows}')
     if list_items:
         header = list(list_items[0].keys()) 
         current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")

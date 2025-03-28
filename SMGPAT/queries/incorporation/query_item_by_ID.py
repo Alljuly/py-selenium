@@ -12,8 +12,8 @@ load_dotenv()
 def query_item(navigator, csv_path: str):
 
     plaquetas = load_plaquetas(csv_path)
-    keys = str(plaquetas[0])
-
+    keys = str(plaquetas["numero_plaqueta"].iloc[0])
+    print(keys)
     clear_and_send(navigator, By.ID, PLAQUETA_INIT_ID, keys)
     button_query = wait_presence(navigator, By.NAME, BUTTON_QUERY)
     button_query.click()
