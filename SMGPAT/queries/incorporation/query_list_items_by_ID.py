@@ -5,7 +5,7 @@ from SMGPAT.tools import generate_query_csv, load_plaquetas
 from SMGPAT.tools import clear_and_send
 from SMGPAT.tools.webdriver_wait import wait_and_click
 
-from .query_item_by_ID import query_item
+from .query_item_by_ID import query_random_item
 
 def query_sequential_list_items(navigator, csv_path: str):
     plaquetas_df = load_plaquetas(csv_path)
@@ -31,8 +31,17 @@ def query_sequential_list_items(navigator, csv_path: str):
 
 def query_random_list_items(navigator, csv_path: str):
     print(csv_path)
-    plaquetas = load_plaquetas(csv_path)
-    count_plaquetas = len(plaquetas)
-    for i in range(count_plaquetas):
-        query_item(navigator, plaquetas[i])
+    plaquetas_df = load_plaquetas(csv_path)
+    plaquetas_sorted = plaquetas_df.sort_values(by="numero_plaqueta") 
+    plaquetas = plaquetas_sorted["numero_plaqueta"].tolist()
+    items = []
+    print(f'antes {items}')
+    for i, _ in enumerate(plaquetas):
+        item_description = query_random_item(navigator, plaquetas[i])
+        items.append(item_description)
+        print(f'durante 2 {items}')
+    
+    print(f'depois {items}')
+
+    generate_query_csv(navigator, items=items)
 
