@@ -1,6 +1,9 @@
 #CSV de teste
 CSV_PATH = 'SMGPAT/queries/csv_query_test.csv'
 
+# Item por paginação
+GROUP_SIZE = 10
+
 # Constantes para IDs dos campos de login
 LOGIN_FIELDSET_ID = "CTLUSULOGIN"
 PASSWORD_FIELDSET_ID = "CTLUSUSENHA"
