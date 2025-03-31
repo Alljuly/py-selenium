@@ -1,6 +1,23 @@
 #CSV de teste
 CSV_PATH = 'SMGPAT/queries/csv_query_test.csv'
 
+#TRANSFERENCIAS
+
+INCLUDE_TRANSFERENCE_BUTTON_NAME = 'BTNINCLUIR'
+TRANSFERENCE_BUTTON_NAME = 'IMAGETRANSF'
+INPUT_TEXT_AREA_TRANSFERENCE_ID = 'vTRANSFPATDESC'
+PLAQUETA_REFERENCIA_ID = 'vPATPLAQUETA'
+TRANSFERENCE_DESTINY_INPUT_ID = 'vTRANSFPATORGDESTID'
+CONFIRM_TRANSFERENCE_BUTTON_NAME = 'BTNCONFIRMAR'
+CLOSE_TRANSFERENCE_CONFIRM_MODAL_NAME = 'VOLTAR'
+INCLUDE_ITEMS_FORM_ID = 2
+INPUT_SEARCH_BY_PLAQUETA = '//*[@id="W0136TABLE1"]/tbody/tr[1]/td[2]/span/input[2]'
+INPUT_PLAQUETA_ID = 'W0136vPATPLAQUETA'
+INCLUDE_ITEM_BUTTON_NAME = 'W0136BUTTON1'
+BACK_MODULE_BTN_NAME = 'VOLTAR'
+LAST_TRANFERENCE_NUMBER_ID = 'span_CTLTRANSFPATCODIGO_0001'
+FINALIZE_TRANSFERENCE_BUTTON_NAME = 'vSTATUS_0001'
+
 # Item por paginação
 GROUP_SIZE = 10
 
@@ -13,6 +30,20 @@ BUTTOM_FORM_MODULE_ID = 'IMAGEMODULO_0002'
 # Constantes para a tabela de resultados na tela inicial de incorporação de bens móveis
 TABLE_RESULT_ID = 'GriddetalhesContainerTbl'
 BUTTON_VIZUALIZER_NAME = 'vVISUALIZAR_'
+
+HEADERS_QUERY_CSV = {
+            "patplaqueta": '',
+            "status": '',
+            "organograma_name": '',
+            "material_id": '',
+            "material_name": '',
+            "nota_fiscal": '',
+            "serie_nota_fiscal": '',
+            "incluido_por": '',
+            "incluido_em": '',
+            "modificado_por": '',
+            "ultima_modificacao": '',  
+        }
 
 # Constantes para a descricao do item pesquisado
 PATPLAQUETA_ID = 'span_PATPLAQUETA'

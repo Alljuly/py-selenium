@@ -29,8 +29,8 @@ def main():
             navigator.get(URL_INCORPORATION)
             wait.until(EC.url_matches(URL_INCORPORATION))
         
-            query_random_list_items(navigator, CSV_PATH)
-            #query_sequential_list_items(navigator, CSV_PATH)
+            #query_random_list_items(navigator, CSV_PATH)
+            query_sequential_list_items(navigator, CSV_PATH)
 
             input("enter para fechar\n")
 
