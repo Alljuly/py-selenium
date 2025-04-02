@@ -13,7 +13,6 @@ load_dotenv()
 def fill_input_field(navigator, keys):
     clear_and_send(navigator, By.ID, PLAQUETA_INIT_ID, keys)
     clear_and_send(navigator, By.ID, PLAQUETA_FINAL_ID, keys)
-    print(f'KEY: {keys}')
     button_query = wait_presence(navigator, By.NAME, BUTTON_QUERY)
     button_query.click()
 
