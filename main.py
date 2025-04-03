@@ -1,11 +1,9 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from SMGPAT.login import login_patrimonio
-from SMGPAT.settings import URL_MODULES, URL_INCORPORATION, URL_TRANSFERENCE_MODULE
-from SMGPAT.queries import query_item, query_random_list_items, query_sequential_list_items
-from SMGPAT.utils import CSV_PATH
-from SMGPAT.moviment import create, update
+from src.actions import *
+from src.settings import URL_MODULES, URL_INCORPORATION, URL_TRANSFERENCE_MODULE
+from src.utils import CSV_PATH
 
 from dotenv import load_dotenv
 
@@ -16,29 +14,31 @@ def main():
     wait = WebDriverWait(navigator, 30)
     
     wait.until(EC.url_matches(URL_MODULES))
-    event = 3
+    event = 1
+
     match event:
         case 1: 
             navigator.get(URL_INCORPORATION)
             wait.until(EC.url_matches(URL_INCORPORATION))
         
-            query_item(navigator, CSV_PATH)
+            csv_res = query_random_list_items(navigator, CSV_PATH)
+
+            print(csv_res)
 
         case 2:
             navigator.get(URL_INCORPORATION)
             wait.until(EC.url_matches(URL_INCORPORATION))
         
-            query_random_list_items(navigator, CSV_PATH)
-            query_sequential_list_items(navigator, CSV_PATH)
+            list_items_path = query_random_list_items(navigator, CSV_PATH) 
 
-        case 3:
-            navigator.get(URL_TRANSFERENCE_MODULE)
-            #transf = create(navigator,'5214', reference_plaq='83130')
-            #print(transf)
-
-            update(navigator, '711', ['83130', '71744', '172804'])
-
-            
+            if list_items_path:
+                navigator.get(URL_TRANSFERENCE_MODULE)
+                list_items = order_items(list_items_path) 
+                for item_group in list_items:
+                    reference_plaq = item_group[0]['patplaqueta']
+                    transf = create(navigator,destination, reference_plaq=reference_plaq) 
+                    items = [item['patplaqueta'] for item in item_group]
+                    update(navigator,transf, items)
 
     input("enter para fechar \n")
 

@@ -1,13 +1,12 @@
 import csv
 from selenium.webdriver.common.by import By
-from SMGPAT.utils import *
-from SMGPAT.tools.webdriver_wait import wait_presence_get_text, wait_visibility, wait_and_click
+from src.utils import *
+from src.tools.webdriver_wait import wait_presence_get_text, wait_and_click
 
 from datetime import datetime
 
 def get_item_description(navigator, index):
     id_name_element = f'{BUTTON_VIZUALIZER_NAME}{index+1:04}'
-    print(id_name_element)
     wait_and_click(navigator, By.ID, id_name_element)
     
     item_description = {
@@ -42,6 +41,7 @@ def organize_items_pagination(navigator, query_rows):
 
 def generate_query_csv(navigator, query_rows = None, items = None):
     list_items = []
+    
     if not items:
         list_items = organize_items_pagination(navigator, query_rows)
     else:
@@ -58,5 +58,7 @@ def generate_query_csv(navigator, query_rows = None, items = None):
 
             for item in list_items:
                     writer.writerow(item)  
+
+        return result_csv
     else:
         print("Nenhum item encontrado para escrever no CSV.")

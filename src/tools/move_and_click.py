@@ -11,14 +11,16 @@ def move_and_click(navigator, selector, identifier):
             element = wait.until(EC.element_to_be_clickable((selector, identifier)))
             navigator.execute_script("arguments[0].scrollIntoView(true);", element)
             time.sleep(2) 
-            element.click()
-            return        
+            element.click()      
         except StaleElementReferenceException:
             print("Elemento stale. Tentando novamente...")
         except ElementNotInteractableException:
             print("O elemento não está interativo. Tentando novamente...")
         except Exception as e:
             print(f"Erro desconhecido: {e}")
+            
+        finally:
+            return
     
     raise Exception("Não foi possível clicar no botão após várias tentativas")
 

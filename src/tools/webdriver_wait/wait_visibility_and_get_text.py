@@ -4,7 +4,6 @@ from selenium.common.exceptions import NoSuchElementException
 
 from .wait_visibility import wait_visibility
 
-
 def wait_visibility_and_get_text(navigator, selector, identifier):
     try:
         element = wait_visibility(navigator, selector, identifier)

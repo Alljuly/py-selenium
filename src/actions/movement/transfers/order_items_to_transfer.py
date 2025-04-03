@@ -1,22 +1,19 @@
-"""
 import pandas as pd
-
-data_fake = {
-    'numero_plaqueta': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    'organograma_name': ['A', 'A', 'C', 'B', 'C', 'B', 'C', 'D', 'D', 'A'],
-    'status': ['ativo', 'baixado', 'ativo', 'ativo', 'baixado', 'ativo', 'ativo', 'baixado', 'ativo', 'ativo']
-}
-
-df = pd.DataFrame(data_fake)
-"""
+from src.tools import load_plaquetas
 
 def get_active_items(list_items_df):
     list_items_df = list_items_df[list_items_df['status'] != 'Baixado']
     list_sorted = list_items_df.sort_values(by='organograma_name')
-    list_items = list_sorted[['numero_plaqueta','organograma_name']].to_dict(orient='records')
+    list_items = list_sorted[['patplaqueta','organograma_name']].to_dict(orient='records')
     return list_items
 
 def order_items(data):
+    if data is None:
+        return 
+    
+    if not isinstance(data, pd.DataFrame):
+        data = load_plaquetas(data)
+
     list_items = get_active_items(data)
     list_transferences = []
         

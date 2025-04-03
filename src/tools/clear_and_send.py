@@ -7,5 +7,6 @@ from .webdriver_wait import wait_and_click, wait_presence
 def clear_and_send(navigator, selector, identifier, keys):
     wait_and_click(navigator, selector, identifier)
     element = wait_presence(navigator, selector, identifier)
+    element.clear()
     element.send_keys(keys)
 

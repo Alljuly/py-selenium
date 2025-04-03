@@ -1,5 +1,5 @@
 #CSV de teste
-CSV_PATH = 'SMGPAT/queries/csv_query_test.csv'
+CSV_PATH = 'src/queries/csv_query_test.csv'
 
 #TRANSFERENCIAS
 
@@ -23,7 +23,8 @@ LAST_TRANFERENCE_NUMBER_ID = 'span_CTLTRANSFPATCODIGO_0001'
 FINALIZE_TRANSFERENCE_BUTTON_NAME = 'vSTATUS_0001'
 TRANSFERENCE_CODE_XPATH = '//*[@id="span_vTRANSFPATCODIGO"]'
 TRANSFERENCE_INPUT_CODE_ID = 'vTRANSFPATCODIGO'
-BACK_MODULE_BTN_NAME = 'VOLTAR'
+BACK_MODULE_BTN_NAME = 'BTNVOLTAR'
+UPDATE_TRANSFERENCE_BTN_ID = 'vEDITAR_0001'
 
 # Item por paginação
 GROUP_SIZE = 10
@@ -37,6 +38,7 @@ BUTTOM_FORM_MODULE_ID = 'IMAGEMODULO_0002'
 # Constantes para a tabela de resultados na tela inicial de incorporação de bens móveis
 TABLE_RESULT_ID = 'GriddetalhesContainerTbl'
 BUTTON_VIZUALIZER_NAME = 'vVISUALIZAR_'
+FIRST_VIZUALIZER_NAME = 'vVISUALIZAR_0001'
 
 HEADERS_QUERY_CSV = {
             "patplaqueta": '',
@@ -75,6 +77,7 @@ PLAQUETA_INIT_ID = 'vPATPLAQUETAINI'
 PLAQUETA_FINAL_ID = 'vPATPLAQUETAFIN'
 BUTTON_QUERY = 'BTNCONSULTAR'
 ROW_QUERY_ID = 'GriddetalhesContainerRow_'
+FIRST_ROW_QUERY_ID = 'GriddetalhesContainerRow_0001'
 
 # Constantes botões de incorporação patrimonial
 BUTTON_NAV_INCORPORATION_ID = 'ext-gen23'
