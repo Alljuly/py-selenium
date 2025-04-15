@@ -1,0 +1,37 @@
+.workspace-view-actions {
+  width: 100%;
+  justify-content: right;
+  margin: 0.2rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.workspace-view {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: start;
+  padding-top: 2rem;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.action-view-button {
+  text-align: center;
+  background-color: #fefae0;
+  padding: 0.3rem;
+  border: solid 1px #626f47;
+  border-radius: 6px;
+  min-width: fit-content;
+}
+
+.action-view-button:hover {
+  border: 1px solid #daa520;
+  color: #daa520;
+}
+
+.action-view-button:active {
+  color: #fefae0;
+  background-color: #626f47;
+  border: none;
+}

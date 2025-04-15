@@ -1,0 +1,31 @@
+.ant-table-wrapper {
+  width: 100% !important;
+  overflow: auto;
+  scrollbar-width: thin;
+  background-color: aliceblue;
+}
+
+.ant-table-container {
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter";
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 12px;
+  height: 60vh;
+}
+
+.ant-table-body {
+  flex-grow: 1;
+}
+
+.ant-table-container > * {
+  margin: 0 !important;
+  max-width: 100% !important;
+  padding: 0.4rem !important;
+  scrollbar-width: none;
+}
+
+body {
+  overflow: auto;
+}

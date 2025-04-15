@@ -3,12 +3,16 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+cookies.json
+.idea/
 # C extensions
 *.so
 
 *.hyb
 
 src/__pycache__
+./
+*.csv
 
 # Distribution / packaging
 .Python
