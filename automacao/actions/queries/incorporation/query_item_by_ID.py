@@ -36,7 +36,7 @@ def query_item(navigator, data_json: dict = None, plaqueta = None):
     return res_json
 
 
-def query_random_item(navigator, plaqueta): # Corrigido aqui
+def query_random_item(navigator, plaqueta):
     print(f'plaquetaaaaaaa : {plaqueta}')
     fill_input_field(navigator, plaqueta)
 

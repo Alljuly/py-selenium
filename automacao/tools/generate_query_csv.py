@@ -3,12 +3,9 @@ from selenium.webdriver.common.by import By
 from automacao.utils import *
 from automacao.tools.webdriver_wait import wait_presence_get_text, wait_and_click
 
-from datetime import datetime
 
-def get_item_description(navigator, index):
-    """id_name_element = f'{BUTTON_VIZUALIZER_NAME}{index+1:04}'
-    wait_and_click(navigator, By.ID, id_name_element)
-    """
+def get_item_description(navigator):
+ 
     item_description = {
             "patplaqueta": wait_presence_get_text(navigator, By.ID, PATPLAQUETA_ID),
             "status": wait_presence_get_text(navigator, By.ID, STATUS_ID),
@@ -32,8 +29,8 @@ def organize_items_pagination(navigator, query_rows):
     for _, row in enumerate(query_rows):
         if not isinstance(row, (list, tuple)):  
             row = [row]
-        for j, m in enumerate(row):
-            item_description = get_item_description(navigator, j)
+        for _, _ in enumerate(row):
+            item_description = get_item_description(navigator)
             items.append(item_description) 
     print(items)
     
@@ -48,7 +45,7 @@ def generate_query_json(navigator, query_rows=None, items=None):
         list_items = items
 
     if list_items:
-        return list_items  # Retorna como JSON-serializable (lista de dicionários)
+        return list_items 
     else:
         print("Nenhum item encontrado para retornar.")
         return []

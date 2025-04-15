@@ -57,7 +57,7 @@ def include_terms_items():
     num_termo = data.get('num_termo')
     with open('cookies.json', 'r', encoding='utf-8') as f:
         cookies = json.load(f)
-        
+
     navigator = open_navigator_with_cookies(cookies)
     navigator.get(URL_TERM_RESPONSABILITY)
     print('indo ate', URL_TERM_RESPONSABILITY)
@@ -111,45 +111,3 @@ def save_cookies_to_file(cookies, filename="cookies.json"):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(cookies, f, indent=4, ensure_ascii=False)
 
-# @app.get('/item/<patplaqueta>')
-# def get_items():
-#     #chamar a função aqui
-#     pass
-
-# def main():
-#     cookies = login_and_get_cookies()
-
-#     navigator = open_navigator_with_cookies(cookies)
-
-#     wait = WebDriverWait(navigator, 30)
-
-
-#     event = 0
-#     match event:
-
-#         case 1: 
-
-#             wait.until(EC.url_matches(URL_INCORPORATION))
-      
-#             csv_res = query_random_list_items(navigator, CSV_PATH)
-#             print(csv_res)
-#         case 2:
-#             navigator.get(URL_INCORPORATION)
-#             wait.until(EC.url_matches(URL_INCORPORATION))
-      
-#             list_items_path = query_random_list_items(navigator, CSV_PATH) 
-#             #list_items_path = "resultado_consulta_2025-04-07_13-19-59.csv"
-#             #list_items_path = "resultado_consulta_2025-04-07_13-50-57.csv"
-#             print(list_items_path)
-#             destination = '1324'
-#             if list_items_path:
-#                 navigator.get(URL_TRANSFERENCE_MODULE)
-#                 list_items = create_transference_by_group(navigator, destination, list_items_path)  
-          
-#                 navigator.get('https://arapiraca.abaco.com.br/ejade/servlet/wmtermoresponsabilidade')
-          
-#                 update_term(navigator, list_items, '29331')
-
-#     input("enter para fechar \n")
-
-# main()
