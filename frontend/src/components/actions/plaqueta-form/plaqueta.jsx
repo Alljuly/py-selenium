@@ -53,10 +53,10 @@ export default function PlaquetaForm({ onAddPlaquetas }) {
           required
         />
       )}
+
       <button className="action-form-button" type="submit">
         Adicionar
       </button>
-
       <div className="sequencia-wrapper">
         <FormInput
           className="sequencia-form-input"
