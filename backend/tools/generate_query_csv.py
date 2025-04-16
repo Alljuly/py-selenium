@@ -1,7 +1,7 @@
 import csv
 from selenium.webdriver.common.by import By
-from automacao.utils import *
-from automacao.tools.webdriver_wait import wait_presence_get_text, wait_and_click
+from backend.utils import *
+from backend.tools.webdriver_wait import wait_presence_get_text, wait_and_click
 
 
 def get_item_description(navigator):

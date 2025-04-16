@@ -1,10 +1,11 @@
 import "../../index.css";
 
 import "./ejade-dashboard.css";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 import EjadeWorkspace from "./ejade-workspace";
 import LoginReminder from "../login-reminder";
-import SpinLoading from "../table-view/spin-loading";
 
 export default function EjadeDashboard(props) {
   const { isLogged, loading } = props;
@@ -12,7 +13,7 @@ export default function EjadeDashboard(props) {
   return (
     <main>
       {loading ? (
-        <SpinLoading />
+        <Spin indicator={<LoadingOutlined spin />} size="large" />
       ) : (
         <div className="dashboard-content">
           {isLogged ? <EjadeWorkspace /> : <LoginReminder />}

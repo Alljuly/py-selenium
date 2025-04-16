@@ -4,14 +4,13 @@ import ActionForm from "../actions/action-default/action-form";
 import "./ejade-workspace.css";
 import "../form-login/form-style.css";
 import { useState } from "react";
-import { Spin } from "antd";
 import axios from "axios";
-import SpinLoading from "../table-view/spin-loading";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";// import * as XLSX from "xlsx";
 
 export default function EjadeWorkspace() {
   const [plaquetas, setPlaquetas] = useState([]);
   const [loading, setLoading] = useState(false);
-
 
   const handleReset = (e) => {
     e.preventDefault();
@@ -57,7 +56,7 @@ export default function EjadeWorkspace() {
       } else {
         console.error("Erro de conexão:", error.message);
       }
-      setUserIsLogged(false);
+      console.error("Erro na busca", error.response.data);
     } finally {
       setLoading(false);
     }
@@ -73,21 +72,18 @@ export default function EjadeWorkspace() {
         }
       );
       const resultData = response.data;
-      resultData != null
-        ? setPlaquetas([])
-        : console.log("verifique o termo");
+      resultData != null ? setPlaquetas([]) : console.log("verifique o termo");
     } catch (error) {
       if (error.response) {
         console.error("Erro na busca", error.response.data);
       } else {
         console.error("Erro de conexão:", error.message);
       }
-      setUserIsLogged(false);
+      console.error("Erro na busca", error.response.data);
     } finally {
       setLoading(false);
     }
   };
-
 
   const handleAddPlaquetas = (novasPlaquetas) => {
     const novas = novasPlaquetas.map((p, idx) => ({
@@ -106,8 +102,6 @@ export default function EjadeWorkspace() {
     }));
     setPlaquetas((prev) => [...prev, ...novas]);
   };
-
-  fetch;
 
   return (
     <>
@@ -141,9 +135,17 @@ export default function EjadeWorkspace() {
           <button className="action-view-button" onClick={handleReset}>
             Limpar
           </button>
-          <button className="action-view-button">Gerar CSV</button>
+          <div className="input-file-wrapper">
+            <input type="file" accept=".csv" onChange={""} />
+            <label>Carregar csv</label>
+          </div>
+          <button className="action-view-button">Enviar</button>
         </div>
-        {loading ? <SpinLoading /> : <TableView dataSource={plaquetas} />}
+        {loading ? (
+          <Spin indicator={<LoadingOutlined spin />} size="large" />
+        ) : (
+          <TableView dataSource={plaquetas} setDataSource={setPlaquetas} />
+        )}
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
-from automacao.actions import *
-from automacao.actions.movement import *
-from automacao.settings import URL_INCORPORATION, URL_TERM_RESPONSABILITY
+from backend.actions import *
+from backend.actions.movement import *
+from backend.settings import URL_INCORPORATION, URL_TERM_RESPONSABILITY
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
@@ -100,7 +100,7 @@ def login():
         return jsonify({"error": "Dados incompletos!"}), 400
     
     cookies = login_and_get_cookies(username, password)
-    if cookies is not None:
+    if cookies is None:
         return jsonify({"message": "Credenciais inválidas!"}), 401
     save_cookies_to_file(cookies)
     return jsonify({"message": "Login realizado com sucesso!"})

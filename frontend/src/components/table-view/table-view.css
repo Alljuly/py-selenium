@@ -29,3 +29,13 @@
 body {
   overflow: auto;
 }
+
+.custom-btn {
+  border: 1px solid #626f47 !important;
+  transition: all 0.3s ease;
+}
+
+.custom-btn:hover {
+  border: 1px solid #626f47 !important;
+  color: #626f47 !important;
+}

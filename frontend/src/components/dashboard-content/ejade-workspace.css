@@ -20,7 +20,7 @@
   text-align: center;
   background-color: #fefae0;
   padding: 0.3rem;
-  border: solid 1px #626f47;
+  border: none;
   border-radius: 6px;
   min-width: fit-content;
 }
@@ -34,4 +34,24 @@
   color: #fefae0;
   background-color: #626f47;
   border: none;
+}
+
+.input-file-wrapper input[type="file"] {
+  display: none;
+}
+
+.input-file-wrapper label {
+  background-color: #626f47;
+  color: white;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  border-radius: 6px;
+  text-align: center;
+  padding: 0.4rem;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.input-file-wrapper label:hover {
+  background-color: #daa520;
 }

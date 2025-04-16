@@ -2,8 +2,8 @@ from selenium.webdriver.common.by import By
 from dotenv import load_dotenv
 
 import time
-from automacao.utils import PLAQUETA_INIT_ID, PLAQUETA_FINAL_ID, BUTTON_QUERY, BUTTON_VIZUALIZER_NAME
-from automacao.tools import *
+from backend.utils import PLAQUETA_INIT_ID, PLAQUETA_FINAL_ID, BUTTON_QUERY, BUTTON_VIZUALIZER_NAME
+from backend.tools import *
 
 load_dotenv()
 
@@ -44,7 +44,7 @@ def query_random_item(navigator, plaqueta):
     id_name_element = f'{BUTTON_VIZUALIZER_NAME}{1:04}'  
     try:
         wait_and_click(navigator, By.ID, id_name_element)
-        item = get_item_description(navigator, 0)
+        item = get_item_description(navigator)
         return item
     except Exception as e:
         print(f"[query_random_item] Falha ao clicar no botão ou obter descrição: {e}")

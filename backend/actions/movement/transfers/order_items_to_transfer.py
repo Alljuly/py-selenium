@@ -1,5 +1,5 @@
 import pandas as pd
-from automacao.tools import load_plaquetas
+from backend.tools import load_plaquetas
 
 def get_active_items(list_items_df):
     list_items_df = list_items_df[list_items_df['status'] != 'Baixado']

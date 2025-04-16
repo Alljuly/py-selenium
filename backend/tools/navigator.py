@@ -1,6 +1,6 @@
 from selenium import webdriver  
 from selenium.webdriver.chrome.options import Options 
-from automacao.settings import URL_NAV, URL_MODULES
+from backend.settings import URL_NAV, URL_MODULES
 
 def open_navigator():
     options = Options()

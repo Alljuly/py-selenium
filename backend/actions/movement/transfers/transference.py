@@ -7,16 +7,16 @@ incluir items
 fechar transferencia
 verificar se o centro de origem é diferente do local de destino
 """
-from automacao.utils import INCLUDE_TRANSFERENCE_BUTTON_NAME,\
+from backend.utils import INCLUDE_TRANSFERENCE_BUTTON_NAME,\
 TRANSFERENCE_INPUT_CODE_ID, TRANSFERENCE_BUTTON_NAME, PLAQUETA_REFERENCIA_ID,\
 ORIGEN_REFERENCIA_ID
 
 
-from automacao.settings import URL_TRANSFERENCE_MODULE
+from backend.settings import URL_TRANSFERENCE_MODULE
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from automacao.tools.webdriver_wait import *
-from automacao.tools import *
+from backend.tools.webdriver_wait import *
+from backend.tools import *
 
 from .order_items_to_transfer import order_items
 

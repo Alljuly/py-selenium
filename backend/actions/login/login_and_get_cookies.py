@@ -2,11 +2,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from automacao.actions import *
-from automacao.settings import URL_MODULES
+from backend.actions import *
+from backend.settings import URL_MODULES
 
-from automacao.tools import open_navigator, clear_and_send, wait_and_click
-from automacao.utils import LOGIN_FIELDSET_ID,PASSWORD_FIELDSET_ID, BUTTOM_FORM_MODULE_ID, BUTTOM_FORM_LOGIN_NAME
+from backend.tools import open_navigator, clear_and_send, wait_and_click
+from backend.utils import LOGIN_FIELDSET_ID,PASSWORD_FIELDSET_ID, BUTTOM_FORM_MODULE_ID, BUTTOM_FORM_LOGIN_NAME
 
 
 import traceback

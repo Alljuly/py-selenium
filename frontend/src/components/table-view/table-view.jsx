@@ -1,14 +1,65 @@
 import React from "react";
 
-import { Table } from "antd";
+import { Table, Button, Popconfirm, message } from "antd";
 
 import "./table-view.css";
 import "../../App.css";
 import "../../index.css";
-export default function TableView({ dataSource }) {
+
+export default function TableView({ dataSource, setDataSource }) {
   const w = 120;
-  const h = 50;
+
+  const deleteRow = (key) => {
+    setDataSource((prev) => prev.filter((item) => item.key !== key));
+    message.success("Linha apagada com sucesso!");
+  };
+
   const columns = [
+    {
+      title: "",
+      dataIndex: "",
+      key: "x",
+      width: 100,
+      render: (_, record) => (
+        <Popconfirm
+          title="Confirma exclusão?"
+          onConfirm={() => deleteRow(record.key)}
+          okText="Sim"
+          cancelText="Não"
+          onCancel={() => console.log("Cancelado")}
+          style={{
+            top: 100,
+            borderRadius: "10px",
+            padding: "20px",
+            fontFamily: "Inter, sans-serif",
+          }}
+          okButtonProps={{
+            style: {
+              backgroundColor: "#626f47",
+              color: "white",
+              fontFamily: "Inter, sans-serif",
+            },
+          }}
+          cancelButtonProps={{
+            style: {
+              fontFamily: "Inter, sans-serif",
+            },
+          }}
+        >
+          <Button
+            style={{
+              backgroundColor: "transparent",
+              border: "1px solid transparent",
+              fontSize: "10px",
+              padding: "0.2rem",
+            }}
+            className="custom-btn"
+          >
+            Apagar
+          </Button>
+        </Popconfirm>
+      ),
+    },
     {
       title: "Patplaqueta",
       dataIndex: "patplaqueta",
@@ -71,8 +122,6 @@ export default function TableView({ dataSource }) {
       width: w,
     },
   ];
-
-  console.log(dataSource);
 
   return (
     <Table

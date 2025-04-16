@@ -1,5 +1,5 @@
-from automacao.tools import *
-from automacao.utils import *
+from backend.tools import *
+from backend.utils import *
 
 TERMO_RESP_INPUT_ID = 'vTRMRESPID'
 TERMO_FIRST_ROW_ID = 'span_CTLTRMRESPID_0001'

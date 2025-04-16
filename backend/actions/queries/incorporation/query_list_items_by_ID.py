@@ -1,4 +1,4 @@
-from automacao.tools import generate_query_json, load_plaquetas
+from backend.tools import generate_query_json, load_plaquetas
 
 
 from .query_item_by_ID import query_random_item
