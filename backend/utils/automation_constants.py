@@ -2,6 +2,8 @@
 CSV_PATH = 'rename/actions/queries/csv_query_test.csv'
 
 
+ELEMENT_STALE = "Elemento ficou stale. Tentando novamente..."
+BUTTON_NOT_CLICABLE  = "Não foi possível clicar no botão após várias tentativas"
 
 #TRANSFERENCIAS
 

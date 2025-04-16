@@ -3,8 +3,8 @@ import React from "react";
 import { Table, Button, Popconfirm, message } from "antd";
 
 import "./table-view.css";
-import "../../App.css";
-import "../../index.css";
+import "../../../App.css";
+import "../../../index.css";
 
 export default function TableView({ dataSource, setDataSource }) {
   const w = 120;

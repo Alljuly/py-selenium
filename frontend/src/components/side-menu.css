@@ -1,0 +1,23 @@
+.arrow-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .dropdown[open] .arrow-icon {
+    transform: rotate(180deg);
+  }
+  
+  .dropdown[close] {
+    max-width: 10px;
+  }
+
+  .dropdown summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  
+  .summary-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }

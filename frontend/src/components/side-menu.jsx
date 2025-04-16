@@ -1,10 +1,10 @@
 import "../index.css";
-import "../App.css";
+import "./side-menu.css";
 
 import { AiOutlineRight } from "react-icons/ai";
-import FormLogin from "./form-login/form-login";
+import FormLogin from "./login-form/login-form";
 
-export default function SideMenu({onSubmit}) {
+export default function SideMenu({ onSubmit }) {
   return (
     <>
       <details className="dropdown">
@@ -13,9 +13,8 @@ export default function SideMenu({onSubmit}) {
             <AiOutlineRight className="arrow-icon" />
           </span>
         </summary>
-        <FormLogin onSubmit={onSubmit}/>
+        <FormLogin onSubmit={onSubmit} />
       </details>
-
     </>
   );
 }

@@ -1,12 +1,12 @@
 import TableView from "../table-view/table-view";
-import PlaquetaForm from "../actions/plaqueta";
-import ActionForm from "../actions/action-default/action-form";
+import PlaquetaForm from "../../actions/plaqueta-form/plaqueta";
+import ActionForm from "../../actions/action-form/action-form";
 import "./ejade-workspace.css";
-import "../form-login/form-style.css";
+import "../../login-form/style-form.css";
 import { useState } from "react";
 import axios from "axios";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";// import * as XLSX from "xlsx";
+import { Spin } from "antd"; // import * as XLSX from "xlsx";
 
 export default function EjadeWorkspace() {
   const [plaquetas, setPlaquetas] = useState([]);

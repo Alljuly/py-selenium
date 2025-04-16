@@ -1,6 +1,6 @@
-import "./form-style.css";
-import FormInput from "./form-input";
+import FormInput from "./input-form";
 import { useRef, useState } from "react";
+import "./style-form.css";
 
 export default function FormLogin({ onSubmit }) {
   const formRef = useRef();
@@ -23,8 +23,6 @@ export default function FormLogin({ onSubmit }) {
     if (onSubmit) {
       onSubmit(username, password);
     }
-
-    
   };
 
   return (

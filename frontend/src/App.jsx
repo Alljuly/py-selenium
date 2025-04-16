@@ -1,10 +1,9 @@
 import "./index.css";
 import "./App.css";
 import SideMenu from "./components/side-menu";
-import EjadeDashboard from "./components/dashboard-content/ejade-dashboard";
+import EjadeDashboard from "./components/main-components/dashboard/ejade-dashboard";
 import { useState } from "react";
 import axios from "axios";
-
 
 function App() {
   const [userIsLogged, setUserIsLogged] = useState(false);

@@ -1,4 +1,4 @@
-import "./form-style.css";
+import "./style-form.css";
 
 export default function FormInput(props) {
   const {

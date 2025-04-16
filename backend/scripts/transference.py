@@ -1,12 +1,3 @@
-"""
-pegar o csv q eu criei
-filtrar items baixados
-ordenar item por centro de custo
-criar transferencia
-incluir items
-fechar transferencia
-verificar se o centro de origem é diferente do local de destino
-"""
 from backend.utils import INCLUDE_TRANSFERENCE_BUTTON_NAME,\
 TRANSFERENCE_INPUT_CODE_ID, TRANSFERENCE_BUTTON_NAME, PLAQUETA_REFERENCIA_ID,\
 ORIGEN_REFERENCIA_ID
@@ -18,7 +9,7 @@ from selenium.webdriver.common.by import By
 from backend.tools.webdriver_wait import *
 from backend.tools import *
 
-from .order_items_to_transfer import order_items
+from .order_items_to_transference import order_items
 
 from time import sleep
 

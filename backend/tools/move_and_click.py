@@ -1,6 +1,7 @@
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from backend.utils.automation_constants import BUTTON_NOT_CLICABLE, ELEMENT_STALE
 
 import time
 
@@ -14,11 +15,11 @@ def move_and_click(navigator, selector, identifier):
             element.click()     
             return 
         except StaleElementReferenceException:
-            print("Elemento stale. Tentando novamente...")
+            print(ELEMENT_STALE)
         except ElementNotInteractableException:
             print("O elemento não está interativo. Tentando novamente...")
         except Exception as e:
             print(f"Erro desconhecido: {e}")
     
-    raise Exception("Não foi possível clicar no botão após várias tentativas")
+    raise Exception(BUTTON_NOT_CLICABLE)
 

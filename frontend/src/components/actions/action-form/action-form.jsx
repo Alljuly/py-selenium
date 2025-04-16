@@ -1,4 +1,4 @@
-import FormInput from "../../form-login/form-input";
+import FormInput from "../../login-form/input-form";
 import "./action-form.css";
 import { useState } from "react";
 

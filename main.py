@@ -1,6 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
-from backend.actions import *
-from backend.actions.movement import *
+from backend.scripts import *
+from backend.scripts import *
 from backend.settings import URL_INCORPORATION, URL_TERM_RESPONSABILITY
 from flask import Flask, request, jsonify
 from flask_cors import CORS

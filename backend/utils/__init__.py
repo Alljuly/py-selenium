@@ -1,1 +1,1 @@
-from .classes_identifiers import *
+from .automation_constants import *

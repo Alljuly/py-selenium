@@ -1,6 +1,9 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import StaleElementReferenceException
 
+from backend.utils.automation_constants import ELEMENT_STALE, BUTTON_NOT_CLICABLE
+
+
 def execute_scritp_and_click(navigator, js_selector):
     WebDriverWait(navigator, 30)
     
@@ -11,7 +14,7 @@ def execute_scritp_and_click(navigator, js_selector):
                 element.click()
                 return
         except StaleElementReferenceException:
-            print("Elemento ficou stale. Tentando novamente...")
+            print(ELEMENT_STALE)
 
-    raise Exception("Não foi possível clicar no botão após várias tentativas")
+    raise Exception(BUTTON_NOT_CLICABLE)
 

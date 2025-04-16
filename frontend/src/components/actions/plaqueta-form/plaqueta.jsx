@@ -1,4 +1,4 @@
-import FormInput from "../form-login/form-input";
+import FormInput from "../../login-form/input-form";
 import "./plaqueta.css";
 import { useState } from "react";
 
@@ -42,7 +42,6 @@ export default function PlaquetaForm({ onAddPlaquetas }) {
         name="plaqueta-init"
         id="plaqueta-init"
         required={true}
-
       />
       {sequencia && (
         <FormInput
@@ -52,7 +51,6 @@ export default function PlaquetaForm({ onAddPlaquetas }) {
           name="plaqueta-final"
           id="plaqueta-final"
           required
-        
         />
       )}
       <button className="action-form-button" type="submit">

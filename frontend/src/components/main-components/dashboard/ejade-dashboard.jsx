@@ -1,10 +1,10 @@
-import "../../index.css";
+import "../../../index.css";
 
 import "./ejade-dashboard.css";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 
-import EjadeWorkspace from "./ejade-workspace";
+import EjadeWorkspace from "../workspace/ejade-workspace";
 import LoginReminder from "../login-reminder";
 
 export default function EjadeDashboard(props) {
