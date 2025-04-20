@@ -13,7 +13,6 @@ import traceback
 
 def login_and_get_cookies(username, password):
     try:
-        print(f"Tentando login com: {username} / {password}")
         navigator = open_navigator()
 
         clear_and_send(navigator, By.ID, LOGIN_FIELDSET_ID, username)

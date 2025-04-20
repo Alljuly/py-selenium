@@ -93,16 +93,16 @@ def create_transference_and_update():
 @app.route("/login", methods=["POST"])
 @handle_exceptions
 def login():
-   
-    username = request.json.get("username")
-    password = request.json.get("password")
-    if not username or not password:
-        return jsonify({"error": "Dados incompletos!"}), 400
-    cookies = login_and_get_cookies(username, password)
-    if cookies is None:
-        return jsonify({"message": "Credenciais inválidas!"}), 401
-    save_cookies_to_file(cookies)
-    return jsonify({"message": "Login realizado com sucesso!"})
+    return jsonify({'message': 'aaaaaaaaaaaaaaaaaaaaa'})
+    # username = request.json.get("username")
+    # password = request.json.get("password")
+    # if not username or not password:
+    #     return jsonify({"error": "Dados incompletos!"}), 400
+    # cookies = login_and_get_cookies(username, password)
+    # if cookies is None:
+    #     return jsonify({"message": "Credenciais inválidas!"}), 401
+    # save_cookies_to_file(cookies)
+    # return jsonify({"message": "Login realizado com sucesso!"})
 
 
 
