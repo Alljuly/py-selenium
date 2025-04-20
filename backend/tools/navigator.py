@@ -1,15 +1,11 @@
 from selenium import webdriver  
-from selenium.webdriver.chrome.options import Options 
-from selenium.webdriver.chrome.service import Service
-from backend.settings import URL_NAV, URL_MODULES
-import tempfile
-
-CHROMIUM_PATH = "/usr/bin/chromium"
-CHROMEDRIVER_PATH = "/usr/bin/chromedriver"
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from backend.settings import URL_NAV, URL_MODULES, BROWSERLESS_URL
 
 def open_navigator():
     options = Options()
-    options.add_argument("--headless=new")  # Mais leve que o antigo headless
+    options.add_argument("--headless")  
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
@@ -17,23 +13,37 @@ def open_navigator():
     options.add_argument("--disable-background-networking")
     options.add_argument("--disable-features=VizDisplayCompositor")
     options.add_argument("--single-process")
-    options.add_argument("--remote-debugging-port=9222")
     
-    options.binary_location = CHROMIUM_PATH
+    
+    capabilities = DesiredCapabilities.CHROME
+    capabilities['browserName'] = 'chrome'
+    capabilities['goog:chromeOptions'] = {
+        "args": [
+            "--headless",
+            "--disable-gpu",
+            "--no-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-software-rasterizer",
+            "--disable-background-networking",
+            "--disable-features=VizDisplayCompositor",
+            "--single-process"
+        ],
+        "w3c": False
+    }
 
-    user_data_dir = tempfile.mkdtemp()
-    options.add_argument(f"--user-data-dir={user_data_dir}")
+    driver = webdriver.Remote(
+        command_executor=BROWSERLESS_URL,
+        options=options,
+        keep_alive=True  
+    )
 
-    service = Service(executable_path=CHROMEDRIVER_PATH)
-    navigator = webdriver.Chrome(service=service, options=options)
-
-    navigator.get(URL_NAV)
-    return navigator
+    driver.get(URL_NAV)
+    return driver
 
 
 def open_navigator_with_cookies(cookies):
     options = Options()
-    options.add_argument("--headless=new") 
+    options.add_argument("--headless")  
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
@@ -41,25 +51,39 @@ def open_navigator_with_cookies(cookies):
     options.add_argument("--disable-background-networking")
     options.add_argument("--disable-features=VizDisplayCompositor")
     options.add_argument("--single-process")
-    options.add_argument("--remote-debugging-port=9222")
+    
+    # Configurações do WebDriver com WebSocket
+    capabilities = DesiredCapabilities.CHROME
+    capabilities['browserName'] = 'chrome'
+    capabilities['goog:chromeOptions'] = {
+        "args": [
+            "--headless",
+            "--disable-gpu",
+            "--no-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-software-rasterizer",
+            "--disable-background-networking",
+            "--disable-features=VizDisplayCompositor",
+            "--single-process"
+        ],
+        "w3c": False
+    }
 
-    options.binary_location = CHROMIUM_PATH
+    driver = webdriver.Remote(
+        command_executor=BROWSERLESS_URL,
+        options=options,
+        keep_alive=True
+    )
 
-    user_data_dir = tempfile.mkdtemp()
-    options.add_argument(f"--user-data-dir={user_data_dir}")
-
-    service = Service(executable_path=CHROMEDRIVER_PATH)
-    navigator = webdriver.Chrome(service=service, options=options)
-
-    navigator.get(URL_NAV)
+    driver.get(URL_NAV)
 
     print("\n===== ADICIONANDO COOKIES NA NOVA SESSÃO =====")
     for cookie in cookies:
         try:
-            navigator.add_cookie(cookie)
+            driver.add_cookie(cookie)
         except Exception as e:
             print(f"[ERRO] Cookie {cookie['name']} não pode ser adicionado: {e}")
     print("==============================================\n")
 
-    navigator.get(URL_MODULES)
-    return navigator
+    driver.get(URL_MODULES)
+    return driver
