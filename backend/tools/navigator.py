@@ -1,5 +1,6 @@
 from selenium import webdriver  
 from selenium.webdriver.chrome.options import Options 
+from selenium.webdriver.chrome.service import Service
 from backend.settings import URL_NAV, URL_MODULES
 import tempfile
 
@@ -18,10 +19,8 @@ def open_navigator():
     user_data_dir = tempfile.mkdtemp()
     options.add_argument(f"--user-data-dir={user_data_dir}")
 
-    navigator = webdriver.Chrome(
-        executable_path=CHROMEDRIVER_PATH,
-        options=options
-    )
+    service = Service(executable_path=CHROMEDRIVER_PATH)
+    navigator = webdriver.Chrome(service=service, options=options)
 
     navigator.get(URL_NAV)
     return navigator
@@ -39,10 +38,8 @@ def open_navigator_with_cookies(cookies):
     user_data_dir = tempfile.mkdtemp()
     options.add_argument(f"--user-data-dir={user_data_dir}")
 
-    navigator = webdriver.Chrome(
-        executable_path=CHROMEDRIVER_PATH,
-        options=options
-    )
+    service = Service(executable_path=CHROMEDRIVER_PATH)
+    navigator = webdriver.Chrome(service=service, options=options)
 
     navigator.get(URL_NAV)
 
