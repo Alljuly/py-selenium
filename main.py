@@ -19,12 +19,12 @@ import json
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": ['http://localhost:5173', 'https://py-selenium.vercel.app']}})
+CORS(app, resources={r"/*": {"origins": ['http://localhost:5173', 'https://ejade-automacao.vercel.app']}})
 
 @app.after_request
 def apply_cors_headers(response):
     origin = request.headers.get("Origin")
-    if origin in ['http://localhost:5173', 'https://py-selenium.vercel.app']:
+    if origin in ['http://localhost:5173', 'https://ejade-automacao.vercel.app']:
         response.headers["Access-Control-Allow-Origin"] = origin
     response.headers["Access-Control-Allow-Credentials"] = "true"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization"
