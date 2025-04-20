@@ -28,5 +28,5 @@ def update_term(navigator, list_items, term):
         except Exception as e:
             print(f"[insert_items] Falha ao clicar no botão ou obter descrição: {e}")
             return None
-    
+    navigator.quit()
     return None

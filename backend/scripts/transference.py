@@ -92,5 +92,6 @@ def create_transference_by_group(navigator, destination, list_items_json):
                     update_transference(navigator,transf, items)
                 
                 flat_list = [item for group in list_items for item in group]
+                navigator.quit()
                 return flat_list
 

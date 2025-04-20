@@ -19,5 +19,5 @@ def query_list_items_service(navigator, plaquetas_data):
         result_json = generate_query_json(navigator, items=items)
         return result_json
     
-
+    navigator.quit()
     return None
