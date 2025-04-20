@@ -10,6 +10,8 @@ import { Spin } from "antd";
 import Papa from "papaparse";
 
 export default function EjadeWorkspace() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [plaquetas, setPlaquetas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("Carregar csv");
@@ -31,7 +33,7 @@ export default function EjadeWorkspace() {
     setLoading(true);
     try {
       setApiMessage("Buscando");
-      const response = await axios.post("http://localhost:5000/get_items", {
+      const response = await axios.post(apiUrl + "/get_items", {
         plaquetas: plaquetas,
       });
       const resultData = response.data;
@@ -46,7 +48,7 @@ export default function EjadeWorkspace() {
       }
       setUserIsLogged(false);
     } finally {
-      setApiMessage('')
+      setApiMessage("");
       setLoading(false);
     }
   };
@@ -55,7 +57,7 @@ export default function EjadeWorkspace() {
     try {
       setApiMessage("Criando Transferencias");
       const response = await axios.post(
-        "http://localhost:5000/create_transference_and_update",
+        apiUrl + "/create_transference_and_update",
         {
           destination: destination,
           plaquetas: plaquetas,
@@ -74,20 +76,17 @@ export default function EjadeWorkspace() {
       console.error("Erro na busca", error.response.data);
     } finally {
       setLoading(false);
-      setApiMessage('')
+      setApiMessage("");
     }
   };
 
   const handleUpdateTerm = async (num_term, plaquetas) => {
     try {
       setApiMessage("Incluindo items no termo...");
-      const response = await axios.post(
-        "http://localhost:5000/include_terms_items",
-        {
-          num_termo: num_term,
-          plaquetas: plaquetas,
-        }
-      );
+      const response = await axios.post(apiUrl + "/include_terms_items", {
+        num_termo: num_term,
+        plaquetas: plaquetas,
+      });
       const resultData = response.data;
       resultData != null
         ? setPlaquetas([]) && setApiMessage("Finalizado")
@@ -100,7 +99,7 @@ export default function EjadeWorkspace() {
       }
       console.error("Erro na busca", error.response.data);
     } finally {
-      setApiMessage('')
+      setApiMessage("");
       setLoading(false);
     }
   };
@@ -181,7 +180,7 @@ export default function EjadeWorkspace() {
       <div className="workspace-view">
         <div className="workspace-view-actions">
           <div>
-            <p>{apimessage}</p>
+            <p>{apiMessage}</p>
           </div>
 
           <button
