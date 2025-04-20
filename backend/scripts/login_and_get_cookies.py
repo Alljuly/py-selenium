@@ -12,8 +12,8 @@ from backend.utils import LOGIN_FIELDSET_ID,PASSWORD_FIELDSET_ID, BUTTOM_FORM_MO
 import traceback
 
 def login_and_get_cookies(username, password):
-
     try:
+        print(f"Tentando login com: {username} / {password}")
         navigator = open_navigator()
 
         clear_and_send(navigator, By.ID, LOGIN_FIELDSET_ID, username)
@@ -32,6 +32,7 @@ def login_and_get_cookies(username, password):
             navigator.quit()
             return cookies
         
+        print('login falhou')
         return None
 
     except Exception as e:

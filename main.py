@@ -1,15 +1,17 @@
 from selenium.webdriver.support.ui import WebDriverWait
-from backend.scripts import *
+from selenium.webdriver.support import expected_conditions as EC
+from backend.scripts import login_and_get_cookies, open_navigator_with_cookies, query_list_items_service, update_term, create_transference_by_group
 from backend.settings import URL_INCORPORATION, URL_TERM_RESPONSABILITY, URL_TRANSFERENCE_MODULE
 from flask import Flask, request, jsonify
+from functools import wraps
 from flask_cors import CORS
+
 import json
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ['http://localhost:5173', 'https://py-selenium.vercel.app']}})
 
-from functools import wraps
-from flask import jsonify
+
 
 def handle_exceptions(f):
     @wraps(f)
@@ -91,6 +93,7 @@ def create_transference_and_update():
 @app.route("/login", methods=["POST"])
 @handle_exceptions
 def login():
+   
     username = request.json.get("username")
     password = request.json.get("password")
     if not username or not password:
