@@ -32,6 +32,12 @@ form > * {
   border: 1px solid #626f47;
 }
 
+.form-button:active {
+  background-color: #c8c472;
+  color: #fefae0;
+  border: 1px solid #fefae0;
+}
+
 input:focus {
   background-color: #fefae0;
   outline: none;

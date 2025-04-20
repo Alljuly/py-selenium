@@ -1,7 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from backend.scripts import *
-from backend.scripts import *
-from backend.settings import URL_INCORPORATION, URL_TERM_RESPONSABILITY
+from backend.settings import URL_INCORPORATION, URL_TERM_RESPONSABILITY, URL_TRANSFERENCE_MODULE
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
@@ -60,11 +59,12 @@ def include_terms_items():
 
     navigator = open_navigator_with_cookies(cookies)
     navigator.get(URL_TERM_RESPONSABILITY)
-    print('indo ate', URL_TERM_RESPONSABILITY)
     wait = WebDriverWait(navigator, 30)
     wait.until(EC.url_matches(URL_TERM_RESPONSABILITY))
 
     update_term(navigator, plaquetas, num_termo)
+    return jsonify({"message": "Termo incluído com sucesso"}), 200
+
 
 
 
@@ -81,7 +81,6 @@ def create_transference_and_update():
         cookies = json.load(f)
     navigator = open_navigator_with_cookies(cookies)
     navigator.get(URL_TRANSFERENCE_MODULE)
-    print('indo ate', URL_TRANSFERENCE_MODULE)
     wait = WebDriverWait(navigator, 30)
     wait.until(EC.url_matches(URL_TRANSFERENCE_MODULE))
     data_list = create_transference_by_group(navigator, destination, plaquetas)
@@ -95,10 +94,8 @@ def create_transference_and_update():
 def login():
     username = request.json.get("username")
     password = request.json.get("password")
-
     if not username or not password:
         return jsonify({"error": "Dados incompletos!"}), 400
-    
     cookies = login_and_get_cookies(username, password)
     if cookies is None:
         return jsonify({"message": "Credenciais inválidas!"}), 401

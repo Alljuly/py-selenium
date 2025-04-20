@@ -13,12 +13,11 @@ def query_list_items_service(navigator, plaquetas_data):
 
     for plaqueta in plaquetas:
         item_description = query_random_item(navigator, plaqueta)
-        print(f'item description: {item_description}')
         if item_description:
             items.append(item_description)
-    
-    result_json = []
     if items:
         result_json = generate_query_json(navigator, items=items)
-        
-    return result_json
+        return result_json
+    
+
+    return None

@@ -1,23 +1,29 @@
 .arrow-icon {
-    transition: transform 0.3s ease;
-  }
-  
-  .dropdown[open] .arrow-icon {
-    transform: rotate(180deg);
-  }
-  
-  .dropdown[close] {
-    max-width: 10px;
-  }
+  transition: transform 0.3s ease;
+}
 
-  .dropdown summary {
-    list-style: none;
-    cursor: pointer;
-  }
-  
-  .summary-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
+summary > span > svg {
+  color: #798645;
+  font-weight: bolder;
+  stroke-width: 8rem;
+}
+
+.dropdown[open] .arrow-icon {
+  transform: rotate(180deg);
+}
+
+.dropdown[close] {
+  max-width: 10px;
+}
+
+.dropdown summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.summary-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

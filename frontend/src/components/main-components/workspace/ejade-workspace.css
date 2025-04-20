@@ -3,7 +3,7 @@
   justify-content: right;
   margin: 0.2rem;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .workspace-view {
@@ -26,8 +26,8 @@
 }
 
 .action-view-button:hover {
-  border: 1px solid #daa520;
-  color: #daa520;
+  border: 1px solid #c8c472;
+  color: #c8c472;
 }
 
 .action-view-button:active {
@@ -53,5 +53,5 @@
 }
 
 .input-file-wrapper label:hover {
-  background-color: #daa520;
+  background-color: #c8c472;
 }

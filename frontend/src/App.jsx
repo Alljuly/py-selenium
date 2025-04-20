@@ -6,13 +6,15 @@ import { useState } from "react";
 import axios from "axios";
 
 function App() {
+  const apiUrl = "http://127.0.0.1:5000";
+
   const [userIsLogged, setUserIsLogged] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (username, password) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post(apiUrl + "/login", {
         username,
         password,
       });

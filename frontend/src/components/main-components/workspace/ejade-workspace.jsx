@@ -3,14 +3,24 @@ import PlaquetaForm from "../../actions/plaqueta-form/plaqueta";
 import ActionForm from "../../actions/action-form/action-form";
 import "./ejade-workspace.css";
 import "../../login-form/style-form.css";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd"; // import * as XLSX from "xlsx";
+import { Spin } from "antd";
+import Papa from "papaparse";
 
 export default function EjadeWorkspace() {
   const [plaquetas, setPlaquetas] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("Carregar csv");
+  const [apiMessage, setApiMessage] = useState("");
+  const [file, setFile] = useState();
+
+  const inputRef = useRef();
+
+  useEffect(() => {
+    console.log("use effect", plaquetas);
+  }, [plaquetas]);
 
   const handleReset = (e) => {
     e.preventDefault();
@@ -20,11 +30,14 @@ export default function EjadeWorkspace() {
   const handleSearch = async (plaquetas) => {
     setLoading(true);
     try {
+      setApiMessage("Buscando");
       const response = await axios.post("http://localhost:5000/get_items", {
         plaquetas: plaquetas,
       });
       const resultData = response.data;
-      resultData != null ? setPlaquetas(resultData) : setPlaquetas([]);
+      resultData != null
+        ? setPlaquetas(resultData)
+        : setPlaquetas([]) && setApiMessage("Nenhum resultado encontrado");
     } catch (error) {
       if (error.response) {
         console.error("Erro na busca", error.response.data);
@@ -33,12 +46,14 @@ export default function EjadeWorkspace() {
       }
       setUserIsLogged(false);
     } finally {
+      setApiMessage('')
       setLoading(false);
     }
   };
 
   const handleTransference = async (destination, plaquetas) => {
     try {
+      setApiMessage("Criando Transferencias");
       const response = await axios.post(
         "http://localhost:5000/create_transference_and_update",
         {
@@ -59,11 +74,13 @@ export default function EjadeWorkspace() {
       console.error("Erro na busca", error.response.data);
     } finally {
       setLoading(false);
+      setApiMessage('')
     }
   };
 
   const handleUpdateTerm = async (num_term, plaquetas) => {
     try {
+      setApiMessage("Incluindo items no termo...");
       const response = await axios.post(
         "http://localhost:5000/include_terms_items",
         {
@@ -72,7 +89,9 @@ export default function EjadeWorkspace() {
         }
       );
       const resultData = response.data;
-      resultData != null ? setPlaquetas([]) : console.log("verifique o termo");
+      resultData != null
+        ? setPlaquetas([]) && setApiMessage("Finalizado")
+        : console.log("verifique o termo");
     } catch (error) {
       if (error.response) {
         console.error("Erro na busca", error.response.data);
@@ -81,6 +100,7 @@ export default function EjadeWorkspace() {
       }
       console.error("Erro na busca", error.response.data);
     } finally {
+      setApiMessage('')
       setLoading(false);
     }
   };
@@ -101,6 +121,40 @@ export default function EjadeWorkspace() {
       ultima_modificacao: "",
     }));
     setPlaquetas((prev) => [...prev, ...novas]);
+  };
+
+  const handleChangeInput = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      setFile(selectedFile);
+      setMessage("Arquivo Pronto");
+    }
+  };
+
+  const handleUploadCSV = () => {
+    if (!file) return;
+
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete(results) {
+        console.log("CSV raw:", results.data);
+
+        const rawPlaquetas = results.data
+          .map((row) => row.plaquetas && row.plaquetas.trim())
+          .filter(Boolean)
+          .filter((p) => /^\d+$/.test(p));
+
+        console.log("Plaquetas filtradas:", rawPlaquetas);
+        handleAddPlaquetas(rawPlaquetas);
+        setMessage("Carregar csv");
+      },
+      error(err) {
+        console.error("Erro ao ler o CSV:", err);
+        setMessage("Erro ao ler o arquivo.");
+      },
+    });
   };
 
   return (
@@ -126,6 +180,10 @@ export default function EjadeWorkspace() {
       </div>
       <div className="workspace-view">
         <div className="workspace-view-actions">
+          <div>
+            <p>{apimessage}</p>
+          </div>
+
           <button
             className="action-view-button"
             onClick={() => handleSearch(plaquetas)}
@@ -136,10 +194,25 @@ export default function EjadeWorkspace() {
             Limpar
           </button>
           <div className="input-file-wrapper">
-            <input type="file" accept=".csv" onChange={""} />
-            <label>Carregar csv</label>
+            <form onSubmit={handleUploadCSV}>
+              <input
+                ref={inputRef}
+                id="file-input"
+                type="file"
+                accept=".csv"
+                onChange={handleChangeInput}
+              />
+              <label htmlFor="file-input" className="custom-upload-label">
+                {message}
+              </label>
+            </form>
           </div>
-          <button className="action-view-button">Enviar</button>
+          <button
+            className="action-view-button"
+            onClick={() => handleUploadCSV()}
+          >
+            Enviar
+          </button>
         </div>
         {loading ? (
           <Spin indicator={<LoadingOutlined spin />} size="large" />
