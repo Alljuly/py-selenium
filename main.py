@@ -7,7 +7,7 @@ import json
 
 app = Flask(__name__)
 
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 from functools import wraps
 from flask import jsonify
