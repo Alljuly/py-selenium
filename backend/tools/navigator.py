@@ -2,20 +2,23 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from backend.settings import URL_NAV, URL_MODULES
 
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+
 def get_webdriver():
     options = Options()
-    options.headless = True  # Roda o Firefox no modo headless (sem interface gráfica)
-    options.add_argument("--disable-gpu")  # Desabilita GPU, embora no modo headless não seja necessário
-    options.add_argument("--no-sandbox")  # Necessário para contêineres Docker ou ambiente restrito
-    options.add_argument("--disable-dev-shm-usage")  # Previne problemas de memória em containers
-    options.add_argument("--disable-software-rasterizer")
-    options.add_argument("--disable-background-networking")
-    options.add_argument("--disable-features=VizDisplayCompositor")
-    options.add_argument("--single-process")
-
-    # Inicializando o WebDriver com o Firefox
-    driver = webdriver.Firefox(options=options)
+    options.add_argument("--headless")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    
+    try:
+        driver = webdriver.Firefox(options=options)
+    except Exception as e:
+        print(f"Error initializing the Firefox WebDriver: {e}")
+        raise
     return driver
+
 
 def open_navigator():
     driver = get_webdriver()
