@@ -1,80 +1,29 @@
-from selenium import webdriver  
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from backend.settings import URL_NAV, URL_MODULES, BROWSERLESS_URL
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from backend.settings import URL_NAV, URL_MODULES
 
-def open_navigator():
+def get_webdriver():
     options = Options()
-    options.add_argument("--headless")  
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
+    options.headless = True  # Roda o Firefox no modo headless (sem interface gráfica)
+    options.add_argument("--disable-gpu")  # Desabilita GPU, embora no modo headless não seja necessário
+    options.add_argument("--no-sandbox")  # Necessário para contêineres Docker ou ambiente restrito
+    options.add_argument("--disable-dev-shm-usage")  # Previne problemas de memória em containers
     options.add_argument("--disable-software-rasterizer")
     options.add_argument("--disable-background-networking")
     options.add_argument("--disable-features=VizDisplayCompositor")
     options.add_argument("--single-process")
-    
-    
-    capabilities = DesiredCapabilities.CHROME
-    capabilities['browserName'] = 'chrome'
-    capabilities['goog:chromeOptions'] = {
-        "args": [
-            "--headless",
-            "--disable-gpu",
-            "--no-sandbox",
-            "--disable-dev-shm-usage",
-            "--disable-software-rasterizer",
-            "--disable-background-networking",
-            "--disable-features=VizDisplayCompositor",
-            "--single-process"
-        ],
-        "w3c": False
-    }
 
-    driver = webdriver.Remote(
-        command_executor=BROWSERLESS_URL,
-        options=options,
-        keep_alive=True  
-    )
+    # Inicializando o WebDriver com o Firefox
+    driver = webdriver.Firefox(options=options)
+    return driver
 
+def open_navigator():
+    driver = get_webdriver()
     driver.get(URL_NAV)
     return driver
 
-
 def open_navigator_with_cookies(cookies):
-    options = Options()
-    options.add_argument("--headless")  
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-software-rasterizer")
-    options.add_argument("--disable-background-networking")
-    options.add_argument("--disable-features=VizDisplayCompositor")
-    options.add_argument("--single-process")
-    
-    # Configurações do WebDriver com WebSocket
-    capabilities = DesiredCapabilities.CHROME
-    capabilities['browserName'] = 'chrome'
-    capabilities['goog:chromeOptions'] = {
-        "args": [
-            "--headless",
-            "--disable-gpu",
-            "--no-sandbox",
-            "--disable-dev-shm-usage",
-            "--disable-software-rasterizer",
-            "--disable-background-networking",
-            "--disable-features=VizDisplayCompositor",
-            "--single-process"
-        ],
-        "w3c": False
-    }
-
-    driver = webdriver.Remote(
-        command_executor=BROWSERLESS_URL,
-        options=options,
-        keep_alive=True
-    )
-
+    driver = get_webdriver()
     driver.get(URL_NAV)
 
     print("\n===== ADICIONANDO COOKIES NA NOVA SESSÃO =====")
