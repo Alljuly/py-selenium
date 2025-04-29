@@ -9,6 +9,7 @@ def move_and_click(navigator, selector, identifier):
     wait = WebDriverWait(navigator, 10)
     for i in range(3):
         try:
+        
             element = wait.until(EC.element_to_be_clickable((selector, identifier)))
             navigator.execute_script("arguments[0].scrollIntoView(true);", element)
             time.sleep(2) 

@@ -31,7 +31,6 @@ def login_and_get_cookies(username, password):
             navigator.quit()
             return cookies
         
-        print('login falhou')
         return None
 
     except Exception as e:

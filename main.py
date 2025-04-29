@@ -60,10 +60,8 @@ def get_items():
 
     navigator = open_navigator_with_cookies(cookies)
     navigator.get(URL_INCORPORATION)
-    print(f'Acessando {URL_INCORPORATION}')
     wait = WebDriverWait(navigator, 30)
     wait.until(EC.url_matches(URL_INCORPORATION))
-
     res = query_list_items_service(navigator, plaquetas)
     return jsonify(res), 200
 
@@ -89,7 +87,7 @@ def include_terms_items():
 @handle_exceptions
 def create_transference_and_update():
     data = request.get_json()
-    print(f'Dados recebidos: {data}')
+
     destination = data.get('destination')
     plaquetas = data.get('plaquetas')
 

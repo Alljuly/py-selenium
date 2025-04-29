@@ -5,7 +5,6 @@ from backend.tools.webdriver_wait import wait_presence_get_text, wait_and_click
 
 
 def get_item_description(navigator):
- 
     item_description = {
             "patplaqueta": wait_presence_get_text(navigator, By.ID, PATPLAQUETA_ID),
             "status": wait_presence_get_text(navigator, By.ID, STATUS_ID),
@@ -32,7 +31,6 @@ def organize_items_pagination(navigator, query_rows):
         for _, _ in enumerate(row):
             item_description = get_item_description(navigator)
             items.append(item_description) 
-    print(items)
     
     return items
 

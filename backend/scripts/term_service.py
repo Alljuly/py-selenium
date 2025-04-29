@@ -14,13 +14,10 @@ def update_term(navigator, list_items, term):
             wait_presence(navigator, By.ID, TERMO_FIRST_ROW_ID)
 
             wait_and_click(navigator, By.ID, UPDATE_TERMO_BTN_NAME)
-            wait_and_click(navigator, By.ID, INCLUDE_ITEMS_FORM_ID)
+            wait_and_click(navigator, By.XPATH, INCLUDE_ITEMS_FORM_XPATH)
             wait_and_click(navigator, By.XPATH, INPUT_RADIO_TERMO_FORM_XPATH)
 
-            print(f"list items: {list_items}")
-
             for item in list_items:
-                print(f'item: {item}')
                 plaqueta = item['patplaqueta']
                 clear_and_send(navigator, By.ID, INPUT_PATPLAQUETA_ID, plaqueta)
                 wait_and_click(navigator, By.NAME, ADD_BUTTON_FORM_NAME)

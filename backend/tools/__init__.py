@@ -1,6 +1,6 @@
 from .navigator import open_navigator_with_cookies, open_navigator
 from .load_plaquetas import load_plaquetas
-from .generate_query_csv import *
+from .generate_query_json import *
 from .webdriver_wait import wait_visibility
 from .webdriver_wait import wait_presence
 from .clear_and_send import clear_and_send

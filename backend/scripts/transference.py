@@ -33,7 +33,6 @@ def update_transference(navigator, transference_number, list_items):
         transference_exists = find_one_transference(navigator, transference_number)
     
     if transference_exists: 
-        print("aqui")
         wait_and_click(navigator, By.ID, INCLUDE_ITEMS_FORM_ID)
         wait_and_click(navigator, By.XPATH, INPUT_SEARCH_BY_PLAQUETA)
     
@@ -73,6 +72,8 @@ def create_transference(navigator, destination, reference_orig = None, reference
  
     wait_and_click(navigator, By.NAME, BACK_MODULE_BTN_NAME)
 
+    #pesquisar minha plaqueta de referencia
+    
     transference_number = wait_presence_get_text(navigator, By.ID, LAST_TRANFERENCE_NUMBER_ID)
 
     return transference_number
