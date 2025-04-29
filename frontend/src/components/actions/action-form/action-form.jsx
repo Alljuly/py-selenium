@@ -17,6 +17,8 @@ export default function ActionForm(props) {
     if (onClick) {
       onClick(inputValue);
     }
+
+    setInputValue("");
   };
 
   return (

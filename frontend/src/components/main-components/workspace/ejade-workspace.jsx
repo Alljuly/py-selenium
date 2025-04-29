@@ -10,7 +10,7 @@ import { Spin } from "antd";
 import Papa from "papaparse";
 
 export default function EjadeWorkspace() {
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = "http://127.0.0.1:5000" || import.meta.env.VITE_API_URL;
 
   const [plaquetas, setPlaquetas] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,13 +20,12 @@ export default function EjadeWorkspace() {
 
   const inputRef = useRef();
 
-  useEffect(() => {
-    console.log("use effect", plaquetas);
-  }, [plaquetas]);
+  useEffect(() => {}, [plaquetas]);
 
   const handleReset = (e) => {
     e.preventDefault();
     setPlaquetas([]);
+    setApiMessage("");
   };
 
   const handleSearch = async (plaquetas) => {
@@ -56,6 +55,7 @@ export default function EjadeWorkspace() {
   const handleTransference = async (destination, plaquetas) => {
     try {
       setApiMessage("Criando Transferencias");
+
       const response = await axios.post(
         apiUrl + "/create_transference_and_update",
         {
@@ -65,8 +65,8 @@ export default function EjadeWorkspace() {
       );
       const resultData = response.data;
       resultData != null
-        ? setPlaquetas([])
-        : console.log("verifique as transferencias");
+        ? setApiMessage("Transferencias finalizadas")
+        : setApiMessage("Verifique as transferencias");
     } catch (error) {
       if (error.response) {
         console.error("Erro na busca", error.response.data);
@@ -75,8 +75,6 @@ export default function EjadeWorkspace() {
       }
       console.error("Erro na busca", error.response.data);
     } finally {
-      setLoading(false);
-      setApiMessage("");
     }
   };
 
@@ -89,8 +87,8 @@ export default function EjadeWorkspace() {
       });
       const resultData = response.data;
       resultData != null
-        ? setPlaquetas([]) && setApiMessage("Finalizado")
-        : console.log("verifique o termo");
+        ? setPlaquetas([])
+        : console.log("Verifique o termo informado");
     } catch (error) {
       if (error.response) {
         console.error("Erro na busca", error.response.data);
@@ -99,14 +97,13 @@ export default function EjadeWorkspace() {
       }
       console.error("Erro na busca", error.response.data);
     } finally {
-      setApiMessage("");
-      setLoading(false);
+      setApiMessage("Finalizado, verifique o termo");
     }
   };
 
   const handleAddPlaquetas = (novasPlaquetas) => {
     const novas = novasPlaquetas.map((p, idx) => ({
-      key: String(plaquetas.length + idx + 1),
+      key: plaquetas.length + idx + 1,
       patplaqueta: p,
       status: "",
       organograma_name: "",
@@ -156,6 +153,21 @@ export default function EjadeWorkspace() {
     });
   };
 
+  const handleDownloadCSV = () => {
+    if (!plaquetas || plaquetas.length === 0) return;
+
+    const csv = Papa.unparse(plaquetas);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "plaquetas.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       <div className="workspace-actions">
@@ -178,17 +190,11 @@ export default function EjadeWorkspace() {
         />
       </div>
       <div className="workspace-view">
-        <div className="workspace-view-actions">
+        <div className="workspace-view-top">
           <div>
             <p>{apiMessage}</p>
           </div>
 
-          <button
-            className="action-view-button"
-            onClick={() => handleSearch(plaquetas)}
-          >
-            Buscar
-          </button>
           <button className="action-view-button" onClick={handleReset}>
             Limpar
           </button>
@@ -214,10 +220,32 @@ export default function EjadeWorkspace() {
           </button>
         </div>
         {loading ? (
-          <Spin indicator={<LoadingOutlined spin />} size="large" />
+          <div className="divSpin">
+            {" "}
+            <Spin indicator={<LoadingOutlined spin />} size="large" />
+          </div>
         ) : (
           <TableView dataSource={plaquetas} setDataSource={setPlaquetas} />
         )}
+        <div className="workspace-view-bottom">
+          <button
+            className="action-view-button"
+            onClick={() => handleSearch(plaquetas)}
+          >
+            Buscar
+          </button>
+
+          <div className="input-file-wrapper">
+            <button
+              className="custom-download-button"
+              onClick={handleDownloadCSV}
+              type="button"
+              disabled={plaquetas.length === 0}
+            >
+              Gerar CSV
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

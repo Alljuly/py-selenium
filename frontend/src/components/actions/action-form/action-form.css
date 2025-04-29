@@ -16,4 +16,10 @@
   width: 30%;
   text-align: center;
   border: none;
+  border: solid 1px #c8c472;
+  transition: transform 0.2s ease;
+}
+
+.action-form-button:hover {
+  transform: scale(1.05);
 }

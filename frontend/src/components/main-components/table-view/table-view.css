@@ -31,11 +31,13 @@ body {
 }
 
 .custom-btn {
-  border: 1px solid #626f47 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e40e0e !important;
   transition: all 0.3s ease;
 }
 
 .custom-btn:hover {
-  border: 1px solid #626f47 !important;
-  color: #626f47 !important;
+  color: #e40e0e9a !important;
 }

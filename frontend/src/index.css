@@ -74,5 +74,10 @@ button {
   overflow: hidden;
 }
 button {
+  transition: transform 0.2s ease;
   cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.15);
 }

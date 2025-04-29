@@ -1,6 +1,13 @@
-.workspace-view-actions {
+.workspace-view-top {
   width: 100%;
   justify-content: right;
+  margin: 0.2rem;
+  align-items: center;
+  gap: 2rem;
+}
+.workspace-view-bottom {
+  width: 100%;
+  justify-content: center;
   margin: 0.2rem;
   align-items: center;
   gap: 2rem;
@@ -22,7 +29,8 @@
   padding: 0.3rem;
   border: none;
   border-radius: 6px;
-  min-width: fit-content;
+  min-width: 80px;
+  border: solid 1px #c8c472;
 }
 
 .action-view-button:hover {
@@ -40,12 +48,14 @@
   display: none;
 }
 
-.input-file-wrapper label {
+.input-file-wrapper label,
+.custom-download-button {
   background-color: #626f47;
   color: white;
   cursor: pointer;
   font-family: "Inter", sans-serif;
   border-radius: 6px;
+  border: none;
   text-align: center;
   padding: 0.4rem;
   box-sizing: border-box;
@@ -54,4 +64,11 @@
 
 .input-file-wrapper label:hover {
   background-color: #c8c472;
+}
+
+.divSpin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
