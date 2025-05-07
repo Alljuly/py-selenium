@@ -26,6 +26,7 @@ export default function EjadeWorkspace() {
     e.preventDefault();
     setPlaquetas([]);
     setApiMessage("");
+    setMessage('Carregar csv')
   };
 
   const handleSearch = async (plaquetas) => {
