@@ -28,6 +28,20 @@ def find_one_transference(navigator, transference_number):
     return False
 
 
+def find_transference_number(navigator, ref_origin, ref_destination):
+    if not EC.url_matches(URL_TRANSFERENCE_MODULE):
+        navigator.get(URL_TRANSFERENCE_MODULE)
+
+    clear_and_send(navigator, By.ID, 'vTRANSFPATORGNORIGID', ref_origin)
+    clear_and_send(navigator, By.ID, 'vTRANSFPATORGNDESTID', ref_destination)
+
+    move_and_click(navigator, By.NAME, BUTTON_QUERY)
+    #move_and_click(navigator, By.NAME, BUTTON_QUERY)
+
+    last_transference = wait_visibility_and_get_text(navigator, By.ID, LAST_TRANFERENCE_NUMBER_ID)
+   
+    return last_transference or None
+
 def update_transference(navigator, transference_number, list_items):
     if URL_TRANSFERENCE_MODULE in navigator.current_url:
         transference_exists = find_one_transference(navigator, transference_number)
@@ -52,7 +66,7 @@ def create_transference(navigator, destination, reference_orig = None, reference
     elif reference_orig:
         reference_id = ORIGEN_REFERENCIA_ID
     
-    referece = reference_orig or reference_plaq
+    reference = reference_orig or reference_plaq
     
     wait_and_click(navigator, By.NAME, INCLUDE_TRANSFERENCE_BUTTON_NAME)
 
@@ -62,19 +76,21 @@ def create_transference(navigator, destination, reference_orig = None, reference
 
     clear_and_send(navigator, By.ID, INPUT_TEXT_AREA_TRANSFERENCE_ID, transference_description)
 
-    clear_and_send(navigator, By.ID, reference_id, referece)
+    clear_and_send(navigator, By.ID, reference_id, reference)
 
     clear_and_send(navigator, By.ID, TRANSFERENCE_DESTINY_INPUT_ID, destination)
 
+    input_origin = wait_presence_get_text(navigator, By.XPATH,'//*[@id="span_vTRANSFPATORGNORIGNOME"]/text')
+
+    ref_origin = input_origin.split('-')[0].strip()
+   
     wait_and_click(navigator, By.NAME, CONFIRM_TRANSFERENCE_BUTTON_NAME)
 
     wait_and_click(navigator, By.ID, CLOSE_POPUP_MODULE_BTN_ID)
  
     wait_and_click(navigator, By.NAME, BACK_MODULE_BTN_NAME)
-
-    #pesquisar minha plaqueta de referencia
     
-    transference_number = wait_presence_get_text(navigator, By.ID, LAST_TRANFERENCE_NUMBER_ID)
+    transference_number = find_transference_number(navigator, ref_origin, destination)
 
     return transference_number
 
@@ -90,7 +106,7 @@ def create_transference_by_group(navigator, destination, list_items_json):
                     reference_plaq = item_group[0]['patplaqueta']
                     transf = create_transference(navigator,destination, reference_plaq=reference_plaq) 
                     items = [item['patplaqueta'] for item in item_group]
-                    update_transference(navigator,transf, items)
+                    update_transference(navigator,transf,items)
                 
                 flat_list = [item for group in list_items for item in group]
                 navigator.quit()

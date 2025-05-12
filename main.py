@@ -63,6 +63,8 @@ def get_items():
     wait = WebDriverWait(navigator, 30)
     wait.until(EC.url_matches(URL_INCORPORATION))
     res = query_list_items_service(navigator, plaquetas)
+
+    navigator.quit()
     return jsonify(res), 200
 
 @app.route('/include_terms_items', methods=['POST'])
@@ -81,6 +83,7 @@ def include_terms_items():
     wait.until(EC.url_matches(URL_TERM_RESPONSABILITY))
 
     update_term(navigator, plaquetas, num_termo)
+    navigator.quit()
     return jsonify({"message": "Termo incluído com sucesso"}), 200
 
 @app.route('/create_transference_and_update', methods=['POST'])
@@ -102,6 +105,8 @@ def create_transference_and_update():
     data_list = create_transference_by_group(navigator, destination, plaquetas)
     if data_list is not None:
         return jsonify({'message': 'Transferências criadas com sucesso'})
+    navigator.quit()
+
     return jsonify(data_list)
 
 @app.route("/login", methods=["POST"])
